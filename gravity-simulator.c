@@ -1,5 +1,6 @@
 #include<stdio.h>
 #include<math.h>
+#include "raylib.h" 
 
 typedef struct {
     double x, y;
@@ -10,6 +11,11 @@ typedef struct {
 void compute_forces(Object *objects, int n, double G, double eps2, int dt);
 
 int main() {
+    const int screenWidth = 800;
+    const int screenHeight = 450;
+
+    InitWindow(screenWidth, screenHeight, "raylib [core] example - basic window");
+    SetTargetFPS(60);
 
     Object objects[] = {
         { 50, 50, 0, 0, 10}, 
@@ -17,12 +23,17 @@ int main() {
         { 150, 150, 0, 0, 10}
     };
 
-    for (int t = 0; t < 100; t++) {
+    while (!WindowShouldClose()) {
         compute_forces(objects, 3, 1, 1, 2);
-        for (int i = 0; i < 3; i++) {
-            printf("object = %i, x = %f, y=%f \n", i, objects[i].x, objects[i].y);
-        }
+        BeginDrawing();
+            ClearBackground(RAYWHITE);
+            DrawText("Congrats! You created your first window!", 190, 200, 20, LIGHTGRAY);
+        EndDrawing();
     }
+
+    CloseWindow();
+
+    return 0;
 }
 
 void compute_forces(Object *objects, int n, double G, double eps2, int dt) {
