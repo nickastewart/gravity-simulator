@@ -27,6 +27,9 @@ int main() {
         compute_forces(objects, 3, 1, 1, 2);
         BeginDrawing();
             ClearBackground(RAYWHITE);
+            for (int i = 0; i < 3; i++){
+              DrawCircle(objects[i].x, objects[i].y, cbrt(objects[i].mass) * 0.5f, DARKBLUE);
+            }
             DrawText("Congrats! You created your first window!", 190, 200, 20, LIGHTGRAY);
         EndDrawing();
     }
