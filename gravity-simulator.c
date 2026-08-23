@@ -1,4 +1,5 @@
 #include<stdio.h>
+#include<stdlib.h>
 #include<math.h>
 #include "raylib.h" 
 
@@ -15,22 +16,27 @@ int main() {
     const int screenHeight = 450;
 
     InitWindow(screenWidth, screenHeight, "raylib [core] example - basic window");
-    SetTargetFPS(60);
+    SetTargetFPS(10);
 
-    Object objects[] = {
-        { 50, 50, 0, 0, 10}, 
-        { 100, 100, 0, 0, 20},
-        { 150, 150, 0, 0, 10}
-    };
+    const int numObjects = 100;
 
+    Object objects[numObjects]; 
+
+    for (int i = 0; i < numObjects; i++) {
+      int x = (rand() % screenWidth) + 1;
+      int y = (rand() % screenHeight) + 1;
+      int mass = (rand() % 150) + 50;
+      Object object = {x, y, 0, 0, mass};
+      objects[i] = object;
+    }
+    
     while (!WindowShouldClose()) {
-        compute_forces(objects, 3, 1, 1, 2);
+        compute_forces(objects, numObjects, 1, 1, 2);
         BeginDrawing();
             ClearBackground(RAYWHITE);
-            for (int i = 0; i < 3; i++){
+            for (int i = 0; i < numObjects; i++){
               DrawCircle(objects[i].x, objects[i].y, cbrt(objects[i].mass) * 0.5f, DARKBLUE);
             }
-            DrawText("Congrats! You created your first window!", 190, 200, 20, LIGHTGRAY);
         EndDrawing();
     }
 
