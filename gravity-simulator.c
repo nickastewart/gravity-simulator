@@ -12,8 +12,8 @@ typedef struct {
 void compute_forces(Object *objects, int n, double G, double eps2, int dt);
 
 int main() {
-    const int screenWidth = 800;
-    const int screenHeight = 450;
+    const int screenWidth = 1200;
+    const int screenHeight = 800;
 
     InitWindow(screenWidth, screenHeight, "raylib [core] example - basic window");
     SetTargetFPS(10);
@@ -25,7 +25,7 @@ int main() {
     for (int i = 0; i < numObjects; i++) {
       int x = (rand() % screenWidth) + 1;
       int y = (rand() % screenHeight) + 1;
-      int mass = (rand() % 150) + 50;
+      int mass = (rand() % 2500) + 50;
       Object object = {x, y, 0, 0, mass};
       objects[i] = object;
     }
@@ -33,9 +33,9 @@ int main() {
     while (!WindowShouldClose()) {
         compute_forces(objects, numObjects, 1, 1, 2);
         BeginDrawing();
-            ClearBackground(RAYWHITE);
+            ClearBackground(BLACK);
             for (int i = 0; i < numObjects; i++){
-              DrawCircle(objects[i].x, objects[i].y, cbrt(objects[i].mass) * 0.5f, DARKBLUE);
+              DrawCircle(objects[i].x, objects[i].y, cbrt(objects[i].mass) * 0.5f, WHITE);
             }
         EndDrawing();
     }
